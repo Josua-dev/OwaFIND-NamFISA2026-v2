@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { motion, useReducedMotion } from 'framer-motion'
 import PhotoBg from '../components/PhotoBg'
 import Slideshow from '../components/Slideshow'
 import Reveal from '../components/Reveal'
@@ -10,23 +9,21 @@ import { heroSlides } from '../data/slides'
 import './Home.css'
 const capabilities=serviceAreas.filter(s=>s.category!=='Consulting').slice(0,6)
 export default function Home(){
-  const reduce=useReducedMotion()
-  const rise=(d=0)=>reduce?{}:{initial:{opacity:0,y:18},animate:{opacity:1,y:0},transition:{duration:0.55,delay:d,ease:[0.16,1,0.3,1]}}
   return(<>
     {/* Premium Hero – strong visual anchor, clear value proposition */}
     <header className="hero" id="top">
       <PhotoBg overlay={0.4}/>
       <div className="wrap hero-grid">
         <div className="hero-copy">
-          <motion.span className="eyebrow" {...rise(0)}>Namibian ICT Systems Integrator · Est. {identity.incorporated}</motion.span>
-          <motion.h1 {...rise(0.08)}>{identity.tagline}</motion.h1>
-          <motion.p className="lead" {...rise(0.16)}>
+          <Reveal as="span" className="eyebrow" delay={0}>Namibian ICT Systems Integrator · Est. {identity.incorporated}</Reveal>
+          <Reveal as="h1" delay={80}>{identity.tagline}</Reveal>
+          <Reveal as="p" className="lead" delay={160}>
             From the border post to the back office — enterprise systems, security, networks and support, built in Windhoek and run for the long term.
-          </motion.p>
-          <motion.div className="hero-actions" {...rise(0.24)}>
+          </Reveal>
+          <Reveal className="hero-actions" delay={240}>
             <Link to="/contact" className="btn btn-primary" aria-label="Contact the Syntex team to discuss your project">Talk to Syntex <ArrowIcon/></Link>
             <Link to="/solutions" className="btn btn-ghost hero-ghost">Explore Solutions</Link>
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </header>
@@ -58,7 +55,7 @@ export default function Home(){
       <ol className="home-timeline">{process.map((st,i)=><Reveal as="li" key={st.n} delay={i*60} className="home-step"><div className="home-step-marker"><span>{st.n}</span></div><div className="home-step-body"><h3>{st.title}</h3><p>{st.text}</p></div></Reveal>)}</ol></section>
 
     <section className="home-partners"><div className="wrap"><Reveal className="home-partners-head"><span className="eyebrow">Technology ecosystem</span><h2>Built on the platforms our clients already depend on.</h2><p>Syntex delivery spans {partners.length} vendor platforms and technologies represented across our engagements.</p></Reveal>
-      <div className="home-partner-wall">{partners.map((p,i)=><motion.span key={p} className="home-partner" initial={reduce?false:{opacity:0,y:8}} whileInView={reduce?false:{opacity:1,y:0}} viewport={{once:true,margin:'-30px'}} transition={{duration:0.35,delay:i*0.03}}>{p}</motion.span>)}</div></div></section>
+      <div className="home-partner-wall">{partners.map((p,i)=><Reveal as="span" key={p} className="home-partner" delay={i*30}>{p}</Reveal>)}</div></div></section>
 
     <CtaBand heading="Let’s engineer your next technology environment." primaryLabel="Talk to Syntex" primary="/contact"/>
   </>)
