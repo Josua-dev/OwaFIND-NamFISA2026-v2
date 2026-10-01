@@ -14,8 +14,7 @@ export class UpdateInstitutionDto {
   description?: string;
 
   @IsOptional()
-  @IsString()
-  isActive?: string; // Keeping as string for simplicity, could be boolean
+  isActive?: boolean;
 
   @IsOptional()
   settings?: Record<string, any>;
